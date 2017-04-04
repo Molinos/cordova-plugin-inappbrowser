@@ -293,8 +293,12 @@ var IAB = {
                 op.oncomplete = function (e) {
                     if (hasCallback) {
                         // return null if event target is unavailable by some reason
-                        var result = (e && e.target) ? [e.target.result] : [null];
-                        win(result);
+                        try {
+                            var result = (e && e.target) ? [e.target.result] : [null];
+                            win(result);
+                        } catch (e) {
+                            console.log('permission denied');
+                        }
                     }
                 };
                 op.onerror = function () { };
